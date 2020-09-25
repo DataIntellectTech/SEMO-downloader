@@ -31,7 +31,7 @@ export KDBAPPCONFIG=${TORQHOME}/appconfig
 export KDBAPPCODE=${TORQHOME}/code
 
 # set KDBBASEPORT to the default value for a TorQ Installation
-export KDBBASEPORT=6000
+export KDBBASEPORT=23539
 
 # set TORQPROCESSES to the default process csv
 export TORQPROCESSES=${KDBAPPCONFIG}/process.csv
