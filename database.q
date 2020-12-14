@@ -1,7 +1,3 @@
-quote:([]time:`timestamp$(); sym:`g#`symbol$(); bid:`float$(); ask:`float$(); bsize:`long$(); asize:`long$(); mode:`char$(); ex:`char$(); src:`symbol$())
-trade:([]time:`timestamp$(); sym:`g#`symbol$(); price:`float$(); size:`int$(); stop:`boolean$(); cond:`char$(); ex:`char$();side:`symbol$())
-quote_iex:([]time:`timestamp$(); sym:`g#`symbol$(); bid:`float$(); ask:`float$(); bsize:`long$(); asize:`long$(); mode:`char$(); ex:`char$(); srctime:`timestamp$())
-trade_iex:([]time:`timestamp$(); sym:`g#`symbol$(); price:`float$(); size:`int$(); stop:`boolean$(); cond:`char$(); ex:`char$(); srctime:`timestamp$())
+weatherforecast:([]time:`timestamp$();sym:`g#`$();observation_time:`timestamp$();lat:`float$();lon:`float$();temp:`float$();precipitation:`float$();precipitation_type:`$();precipitation_probability:`float$();feels_like:`float$();wind_speed:`float$();wind_gust:`float$();cloud_cover:`float$();surface_shortwave_radiation:`float$();sunrise:`timestamp$();sunset:`timestamp$();time_until:`time$())
 
-
-
+weatherobserved:([]time:`timestamp$();sym:`g#`$();observation_time:`timestamp$();lat:`float$();lon:`float$();temp:`float$();feels_like:`float$();wind_speed:`float$();wind_gust:`float$();surface_shortwave_radiation:`float$();precipitation:`float$();cloud_cover:`float$();precipitation_type:`$();sunrise:`timestamp$();sunset:`timestamp$())

@@ -1,94 +1,43 @@
-# TorQ-Finance-Starter-Pack
-An example production ready market data capture system, using randomly generated financial data along with market data pulled from the IEX. The IEX feed was inspired by [Himanshu Gupta](http://www.enlistq.com/qkdb-api-getting-market-financial-data-iex/).
+# SEMO-downloader
 
-## Set Up
+## Grafana and KDB+ Plugin Quick Installation
+The following is a quick guide to installing Grafana with the kdb+ datasource plugin, for a more detailed guide please refer to the full guide on the [kdb+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
 
-Assuming that the [free 32 bit version of kdb+](http://kx.com/software-download.php) is already set up and available from the command prompt as q, then:
+#### Install Grafana:
+Install the latest version of [Grafana](https://grafana.com/grafana/download/7.3.4).
 
-1. Download a zip of the latest version of [TorQ](https://github.com/AquaQAnalytics/TorQ/archive/master.zip)
-2. Download a zip of [this starter pack](https://github.com/AquaQAnalytics/TorQ-Finance-Starter-Pack/archive/master.zip)
-3. Unzip TorQ
-4. Unzip the starter pack over the top (this will replace some files)
-5. Run the appropriate starts script: start_torq_demo.bat for Windows, start_torq_demo.sh for Linux and start_torq_demo_osx.sh for Mac OS X.
+#### Installing kdb+ datasource plugin:
+ - Download the [latest release](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/releases/tag/v1.0.1).
+ - Extract the entire *grafana-kdb-datasource-ws* folder to {Grafana Install Directory}/grafana/data/plugins/.
+ - Install the necessary dependencies for the plugin to run using npm:
+```
+npm install –g grunt-cli
+npm install
+grunt --install
+``` 
+ - Once the plugin has been installed with its corresponding dependencies, Grafana must be started/restarted. On the Windows Operating System this can be done using Windows services, which can acessed by running ``services.msc`` via the Windows Run box (Windows Key+r).
+ 
+#### Configuring kdb+ instance:
+First ensure that the kdb+ instance we wish Grafana to interact with is on an [open listening port](https://code.kx.com/q/basics/listening-port/). Then in order for Grafana to communicate with our kdb+ process we must set up the following custom .z.ws WebSocket message handler on that kdb+ instance:
 
-For more information on how to configure and get started, go to [this site](https://aquaqanalytics.github.io/TorQ-Finance-Starter-Pack/).  You will need to make some modifications if you wish to send emails from the system.
+``.z.ws:{ds:-9!x;neg[.z.w] -8! `o`ID!(@[value;ds[`i];{`$"'",x}];ds[`ID])}``
 
-## IEX API Information
+This function can be set up over a remote handle, qcon or by including it within the base code used to start that process.
 
-The [IEX API](https://intercom.help/iexcloud/en) provides free data. It has recently changed and now requires an API Token to access the datafeed. To utilize the IEX feed provided by this Starter Pack, follow the instruction below.
 
-To obtain a token, you must first create an [IEX Cloud Account](https://iexcloud.io/cloud-login#/register). Your token will be stored on [this page](https://iexcloud.io/console/token). Click on API Tokens to find your token.
+#### Adding datasource:
+Once the kdb+ instance is configured start up Grafana and add that kdb+ instance as a datasource, to do this navigate to the data-sources page in Grafana (*default address: http://localhost:3000*) and click *Add data source*.
+At the bottom of this page under *Others* should be *KDB+*, click on this to set settings.
+*Host* should be only the address and port of the kdb+ instance given as:
 
-Input your token to the IEX_PUBLIC_TOKEN variable in the file setenv.sh. Your token is now available to use as an enviroment variable.
+`ADDRESS:PORT`
 
-Any changes to the API will be reflected in this TorQ pack.
+*'ws://' is not required, processes running on the same machine have `localhost` address.*
 
-[IEX Cloud Services Agreement](https://iexcloud.io/terms/https://iexcloud.io/terms/)
+Default Timeout is how long in ms each query will wait for a response (will default to 5000 ms).
 
-## Updating the Documentation with Mkdocs
+### Importing our Example Dashboard
 
-To make changes to the documentation website you must simply use this command while in the branch you have made the changes on:
+Once the SEMO Downloader and the Grafana KDB+ Plugin have been installed, a dashboard in Grafana can be set up to view the SEMO data. An example dashboard has been included with this repository named ``SEMOpxExampleDashboard.json``, which should give a brief introduction to visualisations of KDB+ data using the Grafana Plugin.
 
-`mkdocs gh-deploy`
-
-You will be prompted to enter a username and password, after this the site should have been updated. You can test the site locally if you want using mkdocs. First use the command:
-
-`mkdocs build`
-
-Then:
-
-`mkdocs serve -a YourIp:Port`
-
-Head to the address it gives you to check if your changes have worked. More information about using mkdocs can be found [here](http://www.mkdocs.org/)
-
-## SSL Certificate
-
-The web request that goes to the API provided by IEX goes through HTTPS. If the relevant security certificates are not installed then the data requests will fail. The setup is similar for Windows and Linux systems. To install the SSL ceritificates:
-
-1. Install OpenSSL from [SLProWeb](https://slproweb.com/products/Win32OpenSSL.html). This should be installed as default on most Linux distributions.
-2. Download the [certificate file](https://curl.haxx.se/ca/cacert.pem).
-3. The environment path must then be set in command prompt via ``setx SSL_CA_CERT_FILE C:\path\to\cacert.pem`` for Windows, and using ``export SSL_CA_CERT_FILE=path/to/cacert.pem`` for Linux.
-
-## Release Notes
-- **1.8.0, May 2020**
-  * Add Data Quality System configuration files.
-  * Add DataDog configuration files.
-  * Minor fixes.
-- **1.7.0, Dec 2018**
-  * Added Basic configuration for integration of Monit for monitoring TorQ.
-  * TORQHOME variable changed from relative path to absolute path in setenv.sh.
-  * QCON flag added so that ./torq.sh qcon <processname> <username>:<password> will connect to the process without need for port to be entered manually.
-  * Default RDB Timeout changed to 180 seconds.
-- **1.6.0, May 2018**:
-  * Update process.csv for start stop script (torq.sh) in TorQ. All the process configuration is now at one place in $KDBAPPCONFIG/process.csv.
-  * Tested with kdb+ 3.6 and TorQ 3.3.0
-- **1.5.0, January 2018**:
-  * Added IEX feed
-  * Added usage file for IEX functions
-- **1.4.0, December 2017**:
-  * Rationalised connections
-  * Added metrics engine
-  * Added vwap subscriber process
-  * Added version dependency requirements
-- **1.3.0, November 2016**:
-  * REQUIRES TORQ 2.7.0
-  * Removed kdb+ tick code
-  * Moved KDBBASEPORT assignment to setenv.sh
-  * Feed process uses timer library
-- **1.2.1, September 2016**:
-  * REQUIRES TORQ 2.6.2
-  * added broadcast functionality to u.q
-  * added sortslave functionality
-- **1.2.0, April 2016**:
-  * REQUIRES TORQ 2.5.0
-  * Removed u.q
-  * Moved all config directory into appconfig
-- **1.1.0, October 2015**:
-  * REQUIRES TORQ 2.2.0
-  * Added compatibility with $KDBAPPCONFIG in TorQ 2.2.0 Release
-- **1.0.1, July 2015**:
-  * Added Chained Tickerplant process
-
-## License Info
-
-Data provided for free by [IEX](https://iextrading.com/developer/)
+Once in Grafana, to import this dashboard simply navigate to the left hand side, click on the plus and then import. Next click upload JSON file and select the example dashboard JSON file included with this code repository. You can then give your dashboard a different name and Unique Identifier, and are required to select the KDB+ datasource which corresponds to your SEMO historical data, once selected click the import button, the example dashboard should now been shown on screen, showing the SEMO data. 
