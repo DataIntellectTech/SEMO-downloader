@@ -2,7 +2,7 @@
 
 ## SEMOpx Reports & Corresponding KDB+ Tables
 
-The SEMO-downloader loads in five different SEMOpx reports and formats them into six seperate tables, the summary table below shows the Reports loaded in and their corresponding tables:
+The SEMO-downloader loads in five different SEMOpx reports and formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
 
 | Report ID       | Report Name           | Corresponding Table(s)  | KDB+ Table Name |
 | ------------- |-------------| -------|-------|
@@ -11,6 +11,8 @@ The SEMO-downloader loads in five different SEMOpx reports and formats them into
 | BM-010      | Daily Load Forecast | Load Forecast | ``loadforecast`` |
 | BM-013      | Four Day Aggregated Rolling Wind Unit Forecast | Four Day Aggregated Rolling Wind Unit Forecast | ``fourdayaggrollwindunitfcst``
 | BM-025      | Imbalance Price Report | Minimum Imbalance | ``imbalancepricereport``
+
+The following is a brief description of each of these tables, the full details of the data contained in each of the reports which make up these tables can be found in the [SEMOpx Data Publication Guide](https://www.semopx.com/documents/general-publications/SEMOpx_Data_Publication_Guide.zip)  
 
 ### Index Prices
 
