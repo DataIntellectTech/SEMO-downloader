@@ -2,13 +2,13 @@
 
 ## SEMOpx Reports & Corresponding KDB+ Tables
 
-| Report ID       | Report Name           | Corresponding Table(s)  |
-| ------------- |-------------| -------|
-| EA-001      | ETS Market Results | Index Prices <br> Linear Orders <br> Complex Orders |
-| BM-009      | Annual Load Forecast | Load Forecast |
-| BM-010      | Daily Load Forecast | Load Forecast |
-| BM-013      | Four Day Aggregated Rolling Wind Unit Forecast |  |
-| BM-025      | Imbalance Price Report | Minimum Imbalance |
+| Report ID       | Report Name           | Corresponding Table(s)  | KDB+ Table Name |
+| ------------- |-------------| -------|-------|
+| EA-001      | ETS Market Results | Index Prices <br> Linear Orders <br> Complex Orders |indexprices <br> linearorders <br> complexorders |
+| BM-009      | Annual Load Forecast | Load Forecast | loadforecast |
+| BM-010      | Daily Load Forecast | Load Forecast | loadforecast |
+| BM-013      | Four Day Aggregated Rolling Wind Unit Forecast | Four Day Aggregated Rolling Wind Unit Forecast | fourdayaggrollwindunitfcst
+| BM-025      | Imbalance Price Report | Minimum Imbalance | imbalancepricereport
 
 ## Grafana and KDB+ Plugin Quick Installation
 The following is a quick guide to installing Grafana with the kdb+ datasource plugin, for a more detailed guide please refer to the full guide on the [kdb+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
