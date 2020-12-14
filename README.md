@@ -2,7 +2,7 @@
 
 ## SEMOpx Reports & Corresponding KDB+ Tables
 
-The SEMO-downloader loads in five different SEMOpx reports and formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
+The SEMO-downloader loads in five different SEMOpx reports, using the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf) and then formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
 
 | Report ID       | Report Name           | Corresponding Table(s)  | KDB+ Table Name |
 | ------------- |-------------| -------|-------|
@@ -12,19 +12,65 @@ The SEMO-downloader loads in five different SEMOpx reports and formats them into
 | BM-013      | Four Day Aggregated Rolling Wind Unit Forecast | Four Day Aggregated Rolling Wind Unit Forecast | ``fourdayaggrollwindunitfcst``
 | BM-025      | Imbalance Price Report | Minimum Imbalance | ``imbalancepricereport``
 
-The following is a brief description of each of these tables, the full details of the data contained in each of the reports which make up these tables can be found in the [SEMOpx Data Publication Guide](https://www.semopx.com/documents/general-publications/SEMOpx_Data_Publication_Guide.zip)  
+The following is a brief description of each of these tables, the full details of the data contained in each of the reports which make up these tables can be found in the [SEMOpx Data Publication Guide](https://www.semopx.com/documents/general-publications/SEMOpx_Data_Publication_Guide.zip).  
 
 ### Index Prices
 
-### Linear Orders
+| Column Header | Description |
+| ----- | ----- |
+| date  | UTC Partition Date |
+| datetime | UTC Timestamp     |
+| priceeur      | Index Price in EUR      |
+| pricegbp      | Index Price in GBP      |
+| volume      | Index Volume       |
+| position      |  |
+| auctionname | Distinguishes between each of the day ahead and intraday auctions <br> SEM_DA, SEM_IDA1, SEM_IDA2, SEM_IDA3  |
+| marketarea  | Distinguishes between auctions in NI & ROI | 
 
-### Complex Orders
+### Linear & Complex Orders
+
+| Column Header | Description |
+| ----- | ----- |
+| date      | UTC Partition Date      |
+| datetime      | UTC Timestamp      |
+| quantity      |       |
+| orderperiodid      |       |
+| memname      |       |
+| fullmemname      |       |
+| currency      |       |
+| pfname      |       |
+| auctionname      |       |
 
 ### Load Forecast
 
+| Column Header | Description |
+| ----- | ----- |
+| date      | UTC Partition Date      |
+| forecasteddate      |       |
+| starttime      |       |
+| endtime      |       |
+| loadfcstroi      |       |
+| loadfcstni      |       |
+| aggregatedfcst      |       |
+| fcsttype      |       |
+| filename      |       |
+
 ### Four Day Aggregated Rolling Wind Unit
 
+| Column Header | Description |
+| ----- | ----- |
+| date      | UTC Partition Date      |
+| starttime      |       |
+| endtime      |       |
+| loadforecastroi      |       |
+| loadforecastni      |       |
+| aggregatedforecast      |       |
+
+
 ### Minimum Imbalance
+
+| Column Header | Description |
+| ----- | ----- |
 
 ## Grafana and KDB+ Plugin Quick Installation
 The following is a quick guide to installing Grafana with the kdb+ datasource plugin, for a more detailed guide please refer to the full guide on the [kdb+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
