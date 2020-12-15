@@ -18,59 +18,74 @@ The following is a brief description of each of these tables, the full details o
 
 | Column Header | Description |
 | ----- | ----- |
-| date  | UTC Partition Date |
-| datetime | UTC Timestamp     |
-| priceeur      | Index Price in EUR      |
-| pricegbp      | Index Price in GBP      |
+| date  | Partition Date |
+| datetime | Timestamp     |
+| priceeur    | Index Price in EUR      |
+| pricegbp    | Index Price in GBP      |
 | volume      | Index Volume       |
-| position      |  |
-| auctionname | Distinguishes between each of the day ahead and intraday auctions <br> SEM_DA, SEM_IDA1, SEM_IDA2, SEM_IDA3  |
+| position    | Net Position Volume |
+| auctionname | Distinguishes between each of the day ahead and intraday auctions: <br> SEM_DA, SEM_IDA1, SEM_IDA2, SEM_IDA3  |
 | marketarea  | Distinguishes between auctions in NI & ROI | 
 
 ### Linear & Complex Orders
 
 | Column Header | Description |
 | ----- | ----- |
-| date      | UTC Partition Date      |
-| datetime      | UTC Timestamp      |
-| quantity      |       |
-| orderperiodid      |       |
-| memname      |       |
-| fullmemname      |       |
-| currency      |       |
-| pfname      |       |
-| auctionname      |       |
+| date      | Partition Date      |
+| datetime      | Timestamp      |
+| quantity      | Value of executed quantity for the linear order      |
+| orderperiodid      | Order ID number for that specific period    |
+| memname      | Member's Trade Name      |
+| fullmemname      | Member's Full Trade Name      |
+| currency      | Settlement currency  <br> EUR, GBP    |
+| pfname      | Name of portfolio <br> [Further details](https://www.sem-o.com/training/modules/balancing-market-registration/Entity-Model.pdf) |
+| auctionname      | Distinguishes between each of the day ahead and intraday auctions      |
 
 ### Load Forecast
 
 | Column Header | Description |
 | ----- | ----- |
-| date      | UTC Partition Date      |
-| forecasteddate      |       |
-| starttime      |       |
-| endtime      |       |
-| loadfcstroi      |       |
-| loadfcstni      |       |
-| aggregatedfcst      |       |
-| fcsttype      |       |
-| filename      |       |
+| date      | Date the Forecast was made on |
+| forecasteddate | Date being forecast       |
+| starttime      | Start time of predicted period       |
+| endtime      | End time of predicted period      |
+| loadfcstroi      | Load Forecast for ROI (MW)  |
+| loadfcstni      | Load Forecast for NI (MW)       |
+| aggregatedfcst      | Aggregated Load Forecast for both Jurisdictions      |
+| fcsttype      | Indicates whether table entry was forecasted daily or annually |
+| filename      | Name of the individual report file the data was extracted from      |
 
 ### Four Day Aggregated Rolling Wind Unit
 
 | Column Header | Description |
 | ----- | ----- |
-| date      | UTC Partition Date      |
-| starttime      |       |
-| endtime      |       |
-| loadforecastroi      |       |
-| loadforecastni      |       |
-| aggregatedforecast      |       |
+| date      | Partition Date      |
+| starttime      | Start time of predicted period      |
+| endtime      | End time of predicted period      |
+| loadforecastroi      | Load Forecast for ROI (MW)       |
+| loadforecastni      | Load Forecast for NI (MW)      |
+| aggregatedforecast      | Aggregated Load Forecast for both Jurisdictions    |
 
 
 ### Minimum Imbalance
 
 | Column Header | Description |
 | ----- | ----- |
+| date  | Partition Date      |
+| start | Start time of the Imbalance Price Period |
+| end | End time of the Imbalance Price Period  |
+| netimbalancevol | Net Imbalance Volume |
+| defaultpxusage | Default price used ‘Y’ or ‘N’ |
+| asppxusage | Administered Scarcity Price Used ‘Y’ or ‘N’ |
+| totunitavail | Total Availability of all Units |
+| demandctrlvol | Demand Control Volume |
+| pmea | Price of the Marginal Energy Action in EUR |
+| qpar | Quantity Price Average Reference |
+| administeredscarcitypx | Administered Scarcity Price in EUR |
+| imbalancepx | Imbalance Price in EUR for the Imbalance Pricing Period |
+| marketbackuppx | Market Backup Price applicable for the Imbalance Settlement Period |
+| shorttermreservequantity | Short Term Reserve Quantity |
+| operatingreserverequirement | Operating Reserve Requirement |
 
 ## Grafana and KDB+ Plugin Quick Installation
 The following is a quick guide to installing Grafana with the kdb+ datasource plugin, for a more detailed guide please refer to the full guide on the [kdb+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
