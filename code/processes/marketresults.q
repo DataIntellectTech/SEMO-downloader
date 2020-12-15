@@ -258,9 +258,9 @@ indexprices:{files:.semo.getfiles[x;x+1;.semo.mrurl;0];
   $[count files;`datetime xasc (uj/) tbl where 0<(count each tbl:.semo.createipx each vs["\r\n";]each files);]}
 
 / creates the minimum imbalance table from date x
-minimumimbalance:{files:.semo.getfiles[x;x+1;.semo.miurl;0];
+minimumimbalance:{files:vs["\r\n";]each .semo.getfiles[x;x+1;.semo.miurl;0];
   files:files where 4<count each files;
-  $[count files;`start xasc (uj/) (.semo.minimbal each vs["\r\n";] each files);]}
+  $[count files;`start xasc (uj/) (.semo.minimbal each files);]}
 
 / creates the annual load forecast table from date x
 annualloadforecast:{text:vs["\r\n";]each .semo.getfiles[x;x+1;.semo.aurl;0];
