@@ -77,7 +77,7 @@ The Four Day Aggregated Rolling Wind Unit table contains the forecasted aggregat
 
 ### Minimum Imbalance
 
-
+The Minimum Imbalance table contains data related to the calculation of the imbalance price for a given imbalance pricing period and is published following the end of its calculation. The Imbalance Price is used to settle energy imbalance volumes, where there is a difference between the amount of power produced and the amount of electricity contracted.
 
 | Column Header | Description |
 | ----- | ----- |
