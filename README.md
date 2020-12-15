@@ -69,6 +69,8 @@ The following is a brief description of each of these tables, the full details o
 
 ### Minimum Imbalance
 
+The Minimum Imbalance table contains information related to the Imbalance Pricing for a specific settlement period. The Imbalance Price is used to settle energy imbalance volumes
+
 | Column Header | Description |
 | ----- | ----- |
 | date  | Partition Date      |
