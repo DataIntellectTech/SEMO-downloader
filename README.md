@@ -16,6 +16,8 @@ The following is a brief description of each of these tables, the full details o
 
 ### Index Prices
 
+The Index Prices table contains index price data for the Day Ahead, Intraday 1, Intraday 2 & Intraday 3 auctions. The ETS Market Results Report which this table is formatted from is published once daily for the prior trading day, excluding weekends where the data for Friday, Saturday & Sunday is published on the Monday.  
+
 | Column Header | Description |
 | ----- | ----- |
 | date  | Partition Date |
@@ -29,11 +31,13 @@ The following is a brief description of each of these tables, the full details o
 
 ### Linear & Complex Orders
 
+Both the Linear & Complex Order tables share the same schema, presenting data on given orders including their quantity, settlement currency, the member who made the order, the portfolio it was under and the auction it corresponded to.    
+
 | Column Header | Description |
 | ----- | ----- |
 | date      | Partition Date      |
 | datetime      | Timestamp      |
-| quantity      | Value of executed quantity for the linear order      |
+| quantity      | Value of executed quantity for that order      |
 | orderperiodid      | Order ID number for that specific period    |
 | memname      | Member's Trade Name      |
 | fullmemname      | Member's Full Trade Name      |
@@ -42,6 +46,8 @@ The following is a brief description of each of these tables, the full details o
 | auctionname      | Distinguishes between each of the day ahead and intraday auctions      |
 
 ### Load Forecast
+
+The Load Forecast table contains the daily & annually predicted load forecasts for ROI, NI and their aggregate; the ``fcsttype`` indicates whether a given forecast was made in an annual or daily report. The report containing the annual predictions (BM-009) is published in August, and contains forecasts for the coming trading year. The report containing the daily predictions (BM-010) is published every four calendar days and contains load forecasts for the following four days.     
 
 | Column Header | Description |
 | ----- | ----- |
@@ -57,6 +63,8 @@ The following is a brief description of each of these tables, the full details o
 
 ### Four Day Aggregated Rolling Wind Unit
 
+The Four Day Aggregated Rolling Wind Unit table contains the forecasted aggregate output (MW) across all Wind Units in each jurisdiction, for the next four Trading Days. The BM-013 Report from where this table is obtained is published four times daily.
+
 | Column Header | Description |
 | ----- | ----- |
 | date      | Partition Date      |
@@ -68,6 +76,8 @@ The following is a brief description of each of these tables, the full details o
 
 
 ### Minimum Imbalance
+
+
 
 | Column Header | Description |
 | ----- | ----- |
