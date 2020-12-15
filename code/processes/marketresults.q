@@ -259,7 +259,7 @@ indexprices:{files:.semo.getfiles[x;x+1;.semo.mrurl;0];
 
 / creates the minimum imbalance table from date x
 minimumimbalance:{files:.semo.getfiles[x;x+1;.semo.miurl;0];
-  files:files where 3<count each files;
+  files:files where 4<count each files;
   $[count files;`start xasc (uj/) (.semo.minimbal each vs["\r\n";] each files);]}
 
 / creates the annual load forecast table from date x
