@@ -1,13 +1,4 @@
-\d .clma 
-
-
-
-
-// CLUSTER LOCATIONS
-latlon:((55.50234;-6.20000;0);
-  (52.00000;-6.00000;1);
-  (27.80000;-2.45000;2))
-
+\d .clma
 
 .servers.startup[]
 
@@ -53,14 +44,17 @@ singleweatherfcst:{[cl;st;et]jsontable:.clma.getdata[raze .clma.url[.clma.hourly
   t:(-1 rotate cols t) xcols t;
   c:count t;
   d:(enlist each 500 xbar `int$1000000*2#'.clma.lat_lon)!(enlist each 2_'.clma.lat_lon);
-  (select date:`date$observation_time, observation_time from t),'([]cluster_sym:first each first each d enlist each 500 xbar `int$1000000*(,'/)exec lat,lon from t),'t ,' select time_until:3600000 xbar `time$observation_time-.z.p from t}
+  t:update forecasttype:`forecast from (select observation_time from t),'([]sym:`$string each first each first each d enlist each 500 xbar `int$1000000*(,'/)exec lat,lon from t),'t ,' select time_until:3600000 xbar `time$observation_time-.z.p from t;
+  (select sym, observation_time from t),'2_'t}
 
 singleweatherobs:{[cl;st;et]jsontable:.clma.getdata[raze .clma.url[.clma.climacell;cl;st;et;fieldsobs]];
   t:flip(cols jsontable)!((@[.clma.jsonget[;jsontable]each 10#cols jsontable;9;parse each ssr[;" ";"_"]each (,/) each]),(jsongettmstmp[;jsontable]each -3#cols jsontable));
   t:(-1 rotate cols t) xcols t;
   c:count t;
   d:(enlist each 500 xbar `int$1000000*2#'.clma.lat_lon)!(enlist each 2_'.clma.lat_lon);
-  t:(select date:`date$observation_time,observation_time from t),'([]cluster_sym:first each first each d enlist each 500 xbar `int$1000000*(,'/)exec lat,lon from t),'1_'t}
+  t:(select observation_time from t),'([]sym:`$string each first each first each d enlist each 500 xbar `int$1000000*(,'/)exec lat,lon from t),'1_'t;
+  t:update time_until:`time$0,forecasttype:`observed from t;
+  (select sym, observation_time from t),'2_'t}
 
 weatherfcst:{[st;et]t:select from `observation_time xasc ((uj/).clma.singleweatherfcst[;st;et]each .clma.clusters `) where time_until>=0;
   t:$[98h=type t;t;];
@@ -74,23 +68,14 @@ filesave:{[table;tp]t:(`$(string tp),"_",ssr[ssr[(string .z.d),"D",(string `seco
   set[first t;last t];
   save `$raze (string .clma.reportbackup),(string t[0]),".csv"}
 
-sendfcst:{[]
-  fcst:.clma.weatherfcst["now";-00:01+.z.d+4];
-  .clma.filesave[fcst;`weatherforecast];
-  fcst:update sym:`$string cluster_sym from fcst;
-  fcst:delete date,cluster_sym from fcst;
-  weatherforecast:`sym xcols fcst;
-  {.clma.tphandle(`.u.upd;`weatherforecast;x)}each value each weatherforecast;
- };
 
-sendobs:{[]
+senddata:{[]
   obs:.clma.weatherobs[-01:00+.z.p;"now"];
   .clma.filesave[obs;`weatherobserved];
-  obs:update sym:`$string cluster_sym from obs;
-  obs:delete date,cluster_sym from obs;
-  weatherobserved:`sym xcols obs;
-  {.clma.tphandle(`.u.upd;`weatherobserved;x)}each value each weatherobserved;
+  fcst:.clma.weatherfcst["now";-00:01+.z.d+4];
+  .clma.filesave[fcst;`weatherforecast];
+  weather:`observation_time xasc obs uj fcst;
+  {.clma.tphandle(`.u.upd;`weather;x)}each value each weather;
  };
 
-.timer.repeat[00:00+.z.d;0W;0D01:00:00;(`.clma.sendfcst;`);"Save weather forecast"]
-.timer.repeat[00:00+.z.d;0W;0D01:00:00;(`.clma.sendobs;`);"Save weather observation"]
+.timer.repeat[00:00+.z.d;0W;0D01:00:00;(`.clma.senddata;`);"Save weather data"]
