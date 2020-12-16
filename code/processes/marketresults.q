@@ -101,9 +101,6 @@ blockprice:{parse each (-4!ssr[12_x;",";"."]).semo.len[x]}
 blockvol:{parse each (-4!ssr[12_x;",";"."]).semo.len[x]}
 
 
-/ uc:{$[(last h where 1=(h:(parse (string `year$x),".10.31")-til 7)mod 7)>x>last k where 1=(k:(parse (string `year$x),".03.31")-til 7)mod 7;x+01:00:00;x]}
-
-
 
 
 
@@ -247,11 +244,15 @@ createdailyloadforecasttable:{[date;text;filenames]
 
 / creates the linear order table from date x
 linearorders:{files:.semo.getfiles[x;x+1;.semo.mrurl;0];
-  $[count files;`datetime xasc (uj/) tbl where 0<(count each tbl:.semo.createlo each vs["\r\n";] each files);]}
+  $[count files;
+    $[max 0<count each .semo.createlo each vs["\r\n";]each files;
+      `datetime xasc (uj/) tbl where 0<(count each tbl:.semo.createlo each vs["\r\n";] each files);];]}
 
 / creates the complex order table from date x
 complexorders:{files:.semo.getfiles[x;x+1;.semo.mrurl;0];
-  $[count files;`datetime xasc (uj/) tbl where 0<(count each tbl:.semo.createco each vs["\r\n";] each files);]}
+  $[count files;
+    $[max 0<count each .semo.createco each vs["\r\n";]each files;
+      `datetime xasc (uj/) tbl where 0<(count each tbl:.semo.createco each vs["\r\n";] each files);];]}
 
 / creates the index prices table from date x
 indexprices:{files:.semo.getfiles[x;x+1;.semo.mrurl;0];
@@ -260,7 +261,7 @@ indexprices:{files:.semo.getfiles[x;x+1;.semo.mrurl;0];
 / creates the minimum imbalance table from date x
 minimumimbalance:{files:vs["\r\n";]each .semo.getfiles[x;x+1;.semo.miurl;0];
   files:files where 4<count each files;
-  $[count files;`start xasc (uj/) (.semo.minimbal each files);]}
+  $[count files;`start xasc (uj/) (.semo.minimbal  each files);]}
 
 / creates the annual load forecast table from date x
 annualloadforecast:{text:vs["\r\n";]each .semo.getfiles[x;x+1;.semo.aurl;0];
@@ -353,7 +354,8 @@ bl:{.semo.savelo[x];
   .semo.savelf[x];
   .semo.savefdarwuf[x];
   .semo.saveipr[x];
-  .Q.chk .semo.hdbdir}
+  .Q.chk .semo.hdbdir;
+  0N!x}
 
 backload:{[sd;ed].semo.bl each asc sd+til 1+ed-sd}
 
