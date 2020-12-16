@@ -1,5 +1,27 @@
 # SEMO-downloader
 
+# Installation
+
+Requires kdb+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script]
+(https://www.aquaq.co.uk/q/torq-installation-script/) by running
+```
+wget https://raw.githubusercontent.com/AquaQAnalytics/SEMO-downloader/master/installlatest.sh
+bash installlatest.sh
+```
+
+### Quick Setup Guide
+
+To make use of the weather forecasting information you will first need to register for a free API key from the [Climacell weather API website]
+(https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the Climacell gives access to 1000 calls per day and each cluster requires 48 calls per day.
+
+To backfill the hdb with the SEMOpx Reports run
+```
+./torq.sh debug semodownloader1
+.semo.backload[.z.d-100;.z.d]
+```
+
+Finally start the stack which can be achieved with `./torq.sh start all`
+
 ## SEMOpx Reports & Corresponding KDB+ Tables
 
 The SEMO-downloader loads in five different SEMOpx reports, using the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf) and then formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
