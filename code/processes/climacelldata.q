@@ -74,7 +74,7 @@ senddata:{[]
   .clma.filesave[obs;`weatherobserved];
   fcst:.clma.weatherfcst["now";-00:01+.z.d+4];
   .clma.filesave[fcst;`weatherforecast];
-  weather:`observation_time xasc obs uj fcst;
+  weather: `time`sym xcols @[cols weather;1;:;`time] xcol weather:`observation_time xasc obs uj fcst;
   {.clma.tphandle(`.u.upd;`weather;x)}each value each weather;
  };
 
