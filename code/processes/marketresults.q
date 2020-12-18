@@ -11,7 +11,7 @@ reportbackup:"reportfiles/"
 mrurl:"https://reports.semopx.com/api/v1/documents/static-reports?ResourceName=MarketResult_SEM"
 
 / base url for minimum imbalance files
-miurl:"https://reports.sem-o.com/api/v1/documents/static-reports?ResourceName=PUB_5MinImbalPrc_"
+miurl:"https://reports.sem-o.com/api/v1/documents/static-reports?ResourceName=PUB_5MinImbalPrc_&page_size=600"
 
 / base url for annual load forecast files
 aurl:"https://reports.sem-o.com/api/v1/documents/static-reports?ResourceName=PUB_annualLoadFcst_"
