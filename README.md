@@ -121,7 +121,7 @@ The Minimum Imbalance table contains data related to the calculation of the imba
 The following is a quick guide to installing Grafana with the kdb+ datasource plugin, for a more detailed guide please refer to the full guide on the [kdb+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
 
 #### Install Grafana:
-Install the latest version of [Grafana](https://grafana.com/grafana/download/7.3.4).
+Install the latest version of [Grafana](https://grafana.com/grafana/download/7.3.4), the version used in this repo was Grafana v7.3.4.
 
 #### Installing kdb+ datasource plugin:
  - Download the [latest release](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/releases/tag/v1.0.1).
