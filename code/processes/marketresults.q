@@ -1,7 +1,7 @@
 .proc.loadf[(getenv`KDBAPPCODE),"/common/req.q"]
-
+.servers.startup[]
 \d .semo
-
+hdbhandle:.servers.gethandlebytype[`hdb;`any]
 hdbdir:@[value;`hdbdir;hsym`$getenv`KDBHDB]
 codedir:@[value;`codedir;hsym`$getenv`KDBAPPCODE]
 
@@ -342,22 +342,46 @@ savedown:{.semo.savelo[.z.d];
   .semo.saveco[.z.d];
   .semo.saveipx[.z.d];
   .semo.savemi[.z.d];
-  .semo.savelf[.z.d];
+  .semo.savelf[.z.d-1];
   .semo.savefdarwuf[.z.d];
-  .semo.saveipr[.z.d];
+  .semo.saveipr[.z.d-1];
   .Q.chk .semo.hdbdir}
 
-bl:{.semo.savelo[x];
-  .semo.saveco[x];
-  .semo.saveipx[x];
-  .semo.savemi[x];
-  .semo.savelf[x];
-  .semo.savefdarwuf[x];
-  .semo.saveipr[x];
-  .Q.chk .semo.hdbdir;
-  0N!x}
 
-backload:{[sd;ed].semo.bl each asc sd+til 1+ed-sd}
+/ backloading data functionality
+
+
+/ loads in and saves down table for a given list of dates d
+savetbl:{[table;d]
+  if[table=`indexprices;.semo.saveipx each raze d];
+  if[table=`linearorders;.semo.savelo each raze d];
+  if[table=`complexorders;.semo.saveco each raze d];
+  if[table=`minimumimbalance;.semo.savemi each raze d];
+  if[table=`imbalancepricereport;.semo.saveipr each raze d];
+  if[table=`fourdayaggrollwindunitfcst;.semo.savefdarwuf each raze d];
+  if[table=`loadforecast;.semo.savelf each d]}
+
+/checks which dates are already saved down for that table to prevent duplicate data
+checkdates:{[table;sd;ed] td:raze value each .semo.hdbhandle"select date from ",string table;
+  td:td where (td where td>=sd)<=ed;
+  d:d where not (d:ed-til ed-sd) in td;
+  .semo.savetbl[table;d]}
+
+/checks table exists in hdb and what dates to load in and save down
+savedownchk:{[table;sd;ed]
+  $[table in .semo.hdbhandle"tables`";
+     .semo.checkdates[table;sd;ed];
+     .semo.savetbl[table;enlist ed-til ed-sd]]}
+
+
+backload:{[sd;ed]
+  .semo.savedownchk[`indexprices;sd;ed];
+  .semo.savedownchk[`linearorders;sd;ed];
+  .semo.savedownchk[`complexorders;sd;ed];
+  .semo.savedownchk[`minimumimbalance;sd;ed];
+  .semo.savedownchk[`imbalancepricereport;sd;ed];
+  .semo.savedownchk[`fourdayaggrollwindunitfcst;sd;ed];
+  .semo.savedownchk[`loadforecast;sd;ed]}
 
 
 .timer.repeat[05:00+.z.d;0W;1D00:00:00;(`.semo.savedown;`);"Save SEMO market data"]
