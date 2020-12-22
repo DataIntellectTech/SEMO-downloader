@@ -153,8 +153,30 @@ At the bottom of this page under *Others* should be *KDB+*, click on this to set
 
 Default Timeout is how long in ms each query will wait for a response (will default to 5000 ms).
 
-### Importing our Example Dashboard
+## Importing our Example Dashboard
 
 Once the SEMO Downloader and the Grafana KDB+ Plugin have been installed, a dashboard in Grafana can be set up to view the SEMO data. An example dashboard has been included with this repository named ``SEMOpxExampleDashboard.json``, which should give a brief introduction to visualisations of KDB+ data using the Grafana Plugin.
 
-Once in Grafana, to import this dashboard simply navigate to the left hand side, click on the plus and then import. Next click upload JSON file and select the example dashboard JSON file included with this code repository. You can then give your dashboard a different name and Unique Identifier, and are required to select the KDB+ datasource which corresponds to your SEMO historical data, once selected click the import button, the example dashboard should now been shown on screen, showing the SEMO data. 
+Once in Grafana, to import this dashboard simply navigate to the left hand side, click on the plus and then import. Next click upload JSON file and select the example dashboard JSON file included with this code repository. You can then give your dashboard a different name and Unique Identifier, and are required to select the KDB+ datasource which corresponds to your SEMO historical data, once selected click the import button, the example dashboard should now been shown on screen, showing the SEMO data.
+
+## Interacting with this KDB+ data via qPython
+As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a kdb+ interfacing library for Python, and Jupyter Notebooks to interact directly with it. 
+
+This can be done by following these steps:
+
+### Install Anaconda
+In order to use Python & Jupyter Notebooks to view the data we need to install the latest version of [Anaconda](https://www.anaconda.com/products/individual), for reference the example shown below uses conda 4.9.2, and Python 3.8.5, with the default Anaconda install options.
+
+### Install qPython
+Once Anaconda has been installed, open an Anaconda prompt and download [qPython](https://pypi.org/project/qPython/) using pip.
+```
+pip install qPython
+```
+### Getting the Data from a KDB+ process
+After installing the qPython library open a new Jupyter Notebook, and ensure the install was successful by running, ``import qpython``, if no error occurs the Module has been installed successfully.
+
+The following is a brief example on connecting to a KDB+ process with qPython, and making a simple plot using [Plotly](https://plotly.com/) Python Library, which can be [downloaded using conda](https://anaconda.org/plotly/plotly), via the Anaconda prompt.
+```
+conda install -c plotly plotly
+```
+
