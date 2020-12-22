@@ -200,7 +200,7 @@ fig = px.line(data, x='datetime', y="priceeur",
              title="Index Price")
 fig.show()
 ```
-
+![Alt text](example_plot.PNG?raw=true "Example Plot")
 
 
 
