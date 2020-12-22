@@ -180,3 +180,27 @@ The following is a brief example on connecting to a KDB+ process with qPython, a
 conda install -c plotly plotly
 ```
 
+First import the QConnection function from qPython and the express class from Plotly to make a plot. 
+```python
+from qpython.qconnection import QConnection
+import plotly.express as px
+```
+Then make a connection to an exisiting KDB+ HDB process which contains the data obtained by the SEMO-downloader, using this connection we can make a simple query to get the indexprices in EUR for the day ahead auction for a period between 2020.12.10 and 2020.12.12.
+```python
+with QConnection(host = '<hostname>', port = <portnumber>, username = '<user>', password = '<pass>') as q:
+    data=q("""select datetime,priceeur from indexprices where date within (2020.12.10; 2020.12.12), 
+           auctionname=`SEM_DA, marketarea=`ROI_DA""", pandas = True)
+```
+The ``pandas=True`` option shown above ensures that the data is returned in a [pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html), additional options are also available and can be found in the [qPython documentation](https://qpython.readthedocs.io/en/latest/index.html).
+
+Lastly, we plot the data using Plotly, which is done in the following lines of code:
+```python
+fig = px.line(data, x='datetime', y="priceeur", 
+              labels={"priceeur":"Price (£/MWh)","datetime":"Date Time"},
+             title="Index Price")
+fig.show()
+```
+
+
+
+
