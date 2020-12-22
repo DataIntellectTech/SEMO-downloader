@@ -159,6 +159,8 @@ Once the SEMO Downloader and the Grafana KDB+ Plugin have been installed, a dash
 
 Once in Grafana, to import this dashboard simply navigate to the left hand side, click on the plus and then import. Next click upload JSON file and select the example dashboard JSON file included with this code repository. You can then give your dashboard a different name and Unique Identifier, and are required to select the KDB+ datasource which corresponds to your SEMO historical data, once selected click the import button, the example dashboard should now been shown on screen, showing the SEMO data.
 
+![](dashboard.PNG?raw=true "Example Dashboard")
+
 ## Interacting with this KDB+ data via qPython
 As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a kdb+ interfacing library for Python, and Jupyter Notebooks to interact directly with it. 
 
@@ -200,7 +202,7 @@ fig = px.line(data, x='datetime', y="priceeur",
              title="Index Price")
 fig.show()
 ```
-![Alt text](example_plot.PNG?raw=true "Example Plot")
+![](example_plot.PNG?raw=true "Example Plot")
 
 
 
