@@ -164,6 +164,10 @@ Once in Grafana, to import this dashboard simply navigate to the left hand side,
 ## Data Quality
 The quality of the data obtained using the SEMO-downloader can also be visually checked against the data presented by EirGrid on their [online dashboard](http://smartgriddashboard.eirgrid.com/#all/market-pricing), below shows an example of this for the Imbalance Pricing data:
 
+![](images/grafana_imbalance.PNG?raw=true)  
+![](images/eirgrid_imbalance.PNG?raw=true)
+
+Note that in both of these graphs the raw data has been bucketed into 30 minute intervals.
 
 ## Interacting with this KDB+ data via qPython
 As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a kdb+ interfacing library for Python, and Jupyter Notebooks to interact directly with it. 
