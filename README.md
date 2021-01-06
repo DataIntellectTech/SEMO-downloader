@@ -12,9 +12,9 @@ bash installlatest.sh
 
 ### Quick Setup Guide
 
-To make use of the weather forecasting information you will first need to register for a free API key from the [ClimaCell weather API website](https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the Climacell gives access to 1000 calls per day and each cluster requires 48 calls per day.
+To make use of the weather forecasting information you will first need to register for a free API key from the [ClimaCell weather API website](https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the ClimaCell gives access to 1000 calls per day and each cluster requires 48 calls per day.
 
-To backfill the hdb with the SEMOpx Reports run
+To backfill the HDB with the SEMOpx Reports run
 ```
 ./torq.sh debug semodownloader1
 .semo.backload[.z.d-100;.z.d]
@@ -24,7 +24,7 @@ Finally start the stack which can be achieved with `./torq.sh start all`
 
 ## SEMOpx Reports & Corresponding KDB+ Tables
 
-The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API and then formats them into six seperate tables, the summary table below shows the Reports loaded in and their corresponding tables:
+The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API and then formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
 
 | Report ID       | Report Name           | Corresponding Table(s)  | KDB+ Table Name |
 | ------------- |-------------| -------|-------|
@@ -38,7 +38,7 @@ The following is a brief description of each of these tables, the full details o
 
 ### Index Prices
 
-The Index Prices table contains index price data for the Day Ahead, Intraday 1, Intraday 2 & Intraday 3 auctions. The ETS Market Results Report which this table is formatted from is published once daily for the prior trading day, excluding weekends (where the data for Friday, Saturday & Sunday is published on the Monday).  
+The Index Prices table contains index price data for the Day Ahead, Intraday 1, Intraday 2 & Intraday 3 auctions. The ETS Market Results report which this table is formatted from is published once daily for the prior trading day, excluding weekends (where the data for Friday, Saturday & Sunday is published on the Monday).  
 
 | Column Header | Description |
 | ----- | ----- |
@@ -85,7 +85,7 @@ The Load Forecast table contains the daily & annually predicted load forecasts f
 
 ### Four Day Aggregated Rolling Wind Unit
 
-The Four Day Aggregated Rolling Wind Unit table contains the Forecasted Aggregate Output (MW) across all Wind Units in each jurisdiction, for the next four Trading Days. The BM-013 Report from where this table is obtained is published four times daily.
+The Four Day Aggregated Rolling Wind Unit table contains the Forecasted Aggregate Output (MW) across all Wind Units in each jurisdiction, for the next four trading days. The BM-013 Report from where this table is obtained is published four times daily.
 
 | Column Header | Description |
 | ----- | ----- |
@@ -183,7 +183,7 @@ Once Anaconda has been installed, open an Anaconda prompt and download [qPython]
 pip install qPython
 ```
 ### Getting the Data from a KDB+ process
-After installing the qPython library open a new Jupyter Notebook, and ensure the install was successful by running, ``import qpython``, if no error occurs the Module has been installed successfully.
+After installing the qPython library open a new Jupyter Notebook, and ensure the install was successful by running, ``import qpython``, if no error occurs the module has been installed successfully.
 
 The following is a brief example on connecting to a KDB+ process with qPython and making a simple plot using [Plotly](https://plotly.com/) Python Library, which can be [downloaded using conda](https://anaconda.org/plotly/plotly), via the Anaconda prompt.
 ```
