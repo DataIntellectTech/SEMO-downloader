@@ -1,5 +1,7 @@
 # SEMO-downloader
 
+The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the SEMOpx API, and weather data obtained from the ClimaCell API, in either KDB+ or Python, as well the ability to display this data using customized plots via the KDB+ Plugin for Grafana.
+
 # Installation
 
 Requires kdb+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script](https://www.aquaq.co.uk/q/torq-installation-script/) by running
@@ -10,7 +12,7 @@ bash installlatest.sh
 
 ### Quick Setup Guide
 
-To make use of the weather forecasting information you will first need to register for a free API key from the [Climacell weather API website](https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the Climacell gives access to 1000 calls per day and each cluster requires 48 calls per day.
+To make use of the weather forecasting information you will first need to register for a free API key from the [ClimaCell weather API website](https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the Climacell gives access to 1000 calls per day and each cluster requires 48 calls per day.
 
 To backfill the hdb with the SEMOpx Reports run
 ```
