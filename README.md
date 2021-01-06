@@ -1,10 +1,10 @@
 # SEMO-downloader
 
-The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the SEMOpx API, and weather data obtained from the ClimaCell API, in either KDB+ or Python, as well the ability to display this data using customized plots via the KDB+ Plugin for Grafana.
+The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf), and weather data obtained from the [ClimaCell API](https://www.climacell.co/weather-api/), in either KDB+ or Python, as well the ability to display this data using customized plots via the KDB+ Plugin for Grafana.
 
 # Installation
 
-Requires kdb+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script](https://www.aquaq.co.uk/q/torq-installation-script/) by running
+Requires KDB+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script](https://www.aquaq.co.uk/q/torq-installation-script/) by running
 ```
 wget https://raw.githubusercontent.com/AquaQAnalytics/SEMO-downloader/master/installlatest.sh
 bash installlatest.sh
@@ -24,7 +24,7 @@ Finally start the stack which can be achieved with `./torq.sh start all`
 
 ## SEMOpx Reports & Corresponding KDB+ Tables
 
-The SEMO-downloader loads in five different SEMOpx reports, using the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf) and then formats them into six seperate tables, the summary table below shows the Reports loaded in and their corresponding tables:
+The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API and then formats them into six seperate tables, the summary table below shows the Reports loaded in and their corresponding tables:
 
 | Report ID       | Report Name           | Corresponding Table(s)  | KDB+ Table Name |
 | ------------- |-------------| -------|-------|
@@ -120,12 +120,12 @@ The Minimum Imbalance table contains data related to the calculation of the imba
 | operatingreserverequirement | Operating Reserve Requirement |
 
 ## Grafana and KDB+ Plugin Quick Installation
-The following is a quick guide to installing Grafana with the kdb+ datasource plugin. For a more detailed guide please refer to the full guide on the [kdb+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
+The following is a quick guide to installing Grafana with the KDB+ datasource plugin. For a more detailed guide please refer to the full guide on the [KDB+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
 
 #### Install Grafana:
 Install the latest version of [Grafana](https://grafana.com/grafana/download/7.3.4), the version used in this repo is Grafana v7.3.4.
 
-#### Installing kdb+ datasource plugin:
+#### Installing KDB+ datasource plugin:
  - Download the [latest release](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/releases/tag/v1.0.1).
  - Extract the entire *grafana-kdb-datasource-ws* folder to {Grafana Install Directory}/grafana/data/plugins/.
  - Install the necessary dependencies for the plugin to run using npm:
@@ -136,8 +136,8 @@ grunt --install
 ``` 
  - Once the plugin has been installed with its corresponding dependencies, Grafana must be started/restarted. On the Windows Operating System this can be done using Windows services, which can acessed by running ``services.msc`` via the Windows Run box (Windows Key+r).
  
-#### Configuring kdb+ instance:
-First ensure that the kdb+ instance we wish Grafana to interact with is on an [open listening port](https://code.kx.com/q/basics/listening-port/). Then in order for Grafana to communicate with our kdb+ process we must assign the following custom .z.ws WebSocket message handler on that kdb+ instance:
+#### Configuring KDB+ instance:
+First ensure that the KDB+ instance we wish Grafana to interact with is on an [open listening port](https://code.kx.com/q/basics/listening-port/). Then in order for Grafana to communicate with our KDB+ process we must assign the following custom .z.ws WebSocket message handler on that KDB+ instance:
 
 ``.z.ws:{ds:-9!x;neg[.z.w] -8! `o`ID!(@[value;ds[`i];{`$"'",x}];ds[`ID])}``
 
@@ -145,9 +145,9 @@ This function can be set up over a remote handle, qcon or by including it within
 
 
 #### Adding datasource:
-Once the kdb+ instance is configured start up Grafana and add that kdb+ instance as a datasource. To do this navigate to the data-sources page in Grafana (*default address: http://localhost:3000*) and click *Add data source*.
+Once the KDB+ instance is configured start up Grafana and add that KDB+ instance as a datasource. To do this navigate to the data-sources page in Grafana (*default address: http://localhost:3000*) and click *Add data source*.
 At the bottom of this page under *Others* should be *KDB+*, click on this to set settings.
-*Host* should be only the address and port of the kdb+ instance given as:
+*Host* should be only the address and port of the KDB+ instance given as:
 
 `ADDRESS:PORT`
 
@@ -172,9 +172,7 @@ The quality of the data obtained using the SEMO-downloader can also be visually 
 Note that in both of these graphs the raw data has been bucketed into 30 minute intervals.
 
 ## Interacting with this KDB+ data via qPython
-As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a kdb+ interfacing library for Python, and Jupyter Notebooks to interact with it directly. 
-
-This can be done by following these steps:
+As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a KDB+ interfacing library for Python, and Jupyter Notebooks to interact with it directly. An example script and identical notebook are included in the ``code/python`` directory, however a simple guide to setting this up is shown below.
 
 ### Install Anaconda
 In order to use Python & Jupyter Notebooks to view the data we need to install the latest version of [Anaconda](https://www.anaconda.com/products/individual). For reference the example shown below uses conda 4.9.2, and Python 3.8.5, with the default Anaconda install options.
