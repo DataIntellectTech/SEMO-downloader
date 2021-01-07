@@ -24,7 +24,7 @@ Finally start the stack which can be achieved with `./torq.sh start all`
 
 ## SEMOpx Reports & Corresponding kdb+ Tables
 
-The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API and then formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
+The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API. These reports are then formatted into six seperate tables, the summary table below shows the reports loaded and their corresponding tables:
 
 | Report ID       | Report Name           | Corresponding Table(s)  | kdb+ Table Name |
 | ------------- |-------------| -------|-------|
@@ -34,11 +34,11 @@ The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API
 | BM-013      | Four Day Aggregated Rolling Wind Unit Forecast | Four Day Aggregated Rolling Wind Unit Forecast | ``fourdayaggrollwindunitfcst``
 | BM-025      | Imbalance Price Report | Minimum Imbalance | ``imbalancepricereport``
 
-The following is a brief description of each of these tables, the full details of the data contained in each of the reports which make up these tables can be found in the [SEMOpx Data Publication Guide](https://www.semopx.com/documents/general-publications/SEMOpx_Data_Publication_Guide.zip).  
+A brief description of each of these tables is given below. The full details of the data contained in each of the reports which make up these tables can be found in the [SEMOpx Data Publication Guide](https://www.semopx.com/documents/general-publications/SEMOpx_Data_Publication_Guide.zip).  
 
 ### Index Prices
 
-The Index Prices table contains index price data for the Day Ahead, Intraday 1, Intraday 2 & Intraday 3 auctions. The ETS Market Results report which this table is formatted from is published once daily for the prior trading day, excluding weekends (where the data for Friday, Saturday & Sunday is published on the Monday).  
+The Index Prices table contains index price data for the Day Ahead, Intraday 1, Intraday 2 & Intraday 3 auctions. The ETS Market Results report, which this table is formatted from, is published once daily for the prior trading day, excluding weekends (where the data for Friday, Saturday & Sunday is published on the Monday).  
 
 | Column Header | Description |
 | ----- | ----- |
@@ -145,8 +145,8 @@ This function can be set up over a remote handle, qcon or by including it within
 
 
 #### Adding datasource:
-Once the kdb+ instance is configured start up Grafana and add that kdb+ instance as a datasource. To do this navigate to the data-sources page in Grafana (*default address: http://localhost:3000*) and click *Add data source*.
-At the bottom of this page under *Others* should be *kdb+*, click on this to set settings.
+Once the kdb+ instance is configured, start up Grafana (*default address: http://localhost:3000*) and add that kdb+ instance as a datasource. To do this, navigate to the data sources page in Grafana by hovering over the cog icon on the left side of the page, then select Data Sources. Once selected, click *Add data source*, using the search bar, search `kdb+`, click on data source labeled kdb+ to set settings related to that kdb+ instance.  
+
 *Host* should be only the address and port of the kdb+ instance given as:
 
 `ADDRESS:PORT`
