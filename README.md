@@ -1,10 +1,10 @@
 # SEMO-downloader
 
-The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf), and weather data obtained from the [ClimaCell API](https://www.climacell.co/weather-api/), in either KDB+ or Python, as well the ability to display this data using customized plots via the KDB+ Plugin for Grafana.
+The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf), and weather data obtained from the [ClimaCell API](https://www.climacell.co/weather-api/), in either kdb+ or Python, as well the ability to display this data using customized plots via the kdb+ Plugin for Grafana.
 
 # Installation
 
-Requires KDB+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script](https://www.aquaq.co.uk/q/torq-installation-script/) by running
+Requires kdb+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script](https://www.aquaq.co.uk/q/torq-installation-script/) by running
 ```
 wget https://raw.githubusercontent.com/AquaQAnalytics/SEMO-downloader/master/installlatest.sh
 bash installlatest.sh
@@ -22,11 +22,11 @@ To backfill the HDB with the SEMOpx Reports run
 
 Finally start the stack which can be achieved with `./torq.sh start all`
 
-## SEMOpx Reports & Corresponding KDB+ Tables
+## SEMOpx Reports & Corresponding kdb+ Tables
 
 The SEMO-downloader loads in five different SEMOpx reports, using the SEMOpx API and then formats them into six seperate tables, the summary table below shows the reports loaded in and their corresponding tables:
 
-| Report ID       | Report Name           | Corresponding Table(s)  | KDB+ Table Name |
+| Report ID       | Report Name           | Corresponding Table(s)  | kdb+ Table Name |
 | ------------- |-------------| -------|-------|
 | EA-001      | ETS Market Results | Index Prices <br> Linear Orders <br> Complex Orders | ``indexprices`` <br> ``linearorders`` <br> ``complexorders`` |
 | BM-009      | Annual Load Forecast | Load Forecast | ``loadforecast`` |
@@ -119,13 +119,13 @@ The Minimum Imbalance table contains data related to the calculation of the imba
 | shorttermreservequantity | Short Term Reserve Quantity |
 | operatingreserverequirement | Operating Reserve Requirement |
 
-## Grafana and KDB+ Plugin Quick Installation
-The following is a quick guide to installing Grafana with the KDB+ datasource plugin. For a more detailed guide please refer to the full guide on the [KDB+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
+## Grafana and kdb+ Plugin Quick Installation
+The following is a quick guide to installing Grafana with the kdb+ datasource plugin. For a more detailed guide please refer to the full guide on the [KDB+ datasource plugin's GitHub](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/blob/master/Readme.md). 
 
 #### Install Grafana:
 Install the latest version of [Grafana](https://grafana.com/grafana/download/7.3.4), the version used in this repo is Grafana v7.3.4.
 
-#### Installing KDB+ datasource plugin:
+#### Installing kdb+ datasource plugin:
  - Download the [latest release](https://github.com/AquaQAnalytics/grafana-kdb-datasource-ws/releases/tag/v1.0.1).
  - Extract the entire *grafana-kdb-datasource-ws* folder to {Grafana Install Directory}/grafana/data/plugins/.
  - Install the necessary dependencies for the plugin to run using npm:
@@ -136,8 +136,8 @@ grunt --install
 ``` 
  - Once the plugin has been installed with its corresponding dependencies, Grafana must be started/restarted. On the Windows Operating System this can be done using Windows services, which can acessed by running ``services.msc`` via the Windows Run box (Windows Key+r).
  
-#### Configuring KDB+ instance:
-First ensure that the KDB+ instance we wish Grafana to interact with is on an [open listening port](https://code.kx.com/q/basics/listening-port/). Then in order for Grafana to communicate with our KDB+ process we must assign the following custom .z.ws WebSocket message handler on that KDB+ instance:
+#### Configuring kdb+ instance:
+First ensure that the kdb+ instance we wish Grafana to interact with is on an [open listening port](https://code.kx.com/q/basics/listening-port/). Then in order for Grafana to communicate with our kdb+ process we must assign the following custom .z.ws WebSocket message handler on that kdb+ instance:
 
 ``.z.ws:{ds:-9!x;neg[.z.w] -8! `o`ID!(@[value;ds[`i];{`$"'",x}];ds[`ID])}``
 
@@ -145,9 +145,9 @@ This function can be set up over a remote handle, qcon or by including it within
 
 
 #### Adding datasource:
-Once the KDB+ instance is configured start up Grafana and add that KDB+ instance as a datasource. To do this navigate to the data-sources page in Grafana (*default address: http://localhost:3000*) and click *Add data source*.
-At the bottom of this page under *Others* should be *KDB+*, click on this to set settings.
-*Host* should be only the address and port of the KDB+ instance given as:
+Once the kdb+ instance is configured start up Grafana and add that kdb+ instance as a datasource. To do this navigate to the data-sources page in Grafana (*default address: http://localhost:3000*) and click *Add data source*.
+At the bottom of this page under *Others* should be *kdb+*, click on this to set settings.
+*Host* should be only the address and port of the kdb+ instance given as:
 
 `ADDRESS:PORT`
 
@@ -157,9 +157,9 @@ Default Timeout is how long in ms each query will wait for a response (will defa
 
 ## Importing our Example Dashboard
 
-Once the SEMO Downloader and the Grafana KDB+ Plugin have been installed, a dashboard in Grafana can be set up to view the SEMO data. An example dashboard has been included with this repository named ``SEMOpxExampleDashboard.json``, which should give a brief introduction to visualisations of KDB+ data using the Grafana Plugin.
+Once the SEMO Downloader and the Grafana kdb+ Plugin have been installed, a dashboard in Grafana can be set up to view the SEMO data. An example dashboard has been included with this repository named ``SEMOpxExampleDashboard.json``, which should give a brief introduction to visualisations of kdb+ data using the Grafana Plugin.
 
-Once in Grafana, to import this dashboard simply navigate to the left hand side, click on the plus and then import. Next click upload JSON file and select the example dashboard JSON file included with this code repository. You can then give your dashboard a different name and Unique Identifier, and are required to select the KDB+ datasource which corresponds to your SEMO historical data. Once selected click the import button, the example dashboard should now been shown on screen, showing the SEMO data.
+Once in Grafana, to import this dashboard simply navigate to the left hand side, click on the plus and then import. Next click upload JSON file and select the example dashboard JSON file included with this code repository. You can then give your dashboard a different name and Unique Identifier, and are required to select the kdb+ datasource which corresponds to your SEMO historical data. Once selected click the import button, the example dashboard should now been shown on screen, showing the SEMO data.
 
 ![](images/dashboard.PNG?raw=true "Example Dashboard")
 
@@ -171,8 +171,8 @@ The quality of the data obtained using the SEMO-downloader can also be visually 
 
 Note that in both of these graphs the raw data has been bucketed into 30 minute intervals.
 
-## Interacting with this KDB+ data via qPython
-As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a KDB+ interfacing library for Python, and Jupyter Notebooks to interact with it directly. An example script and identical notebook are included in the ``code/python`` directory, however a simple guide to setting this up is shown below.
+## Interacting with this kdb+ data via qPython
+As well as using Grafana to visualise the data obtained using the SEMO-downloader, we can also use qPython, a kdb+ interfacing library for Python, and Jupyter Notebooks to interact with it directly. An example script and identical notebook are included in the ``code/python`` directory, however a simple guide to setting this up is shown below.
 
 ### Install Anaconda
 In order to use Python & Jupyter Notebooks to view the data we need to install the latest version of [Anaconda](https://www.anaconda.com/products/individual). For reference the example shown below uses conda 4.9.2, and Python 3.8.5, with the default Anaconda install options.
@@ -182,10 +182,10 @@ Once Anaconda has been installed, open an Anaconda prompt and download [qPython]
 ```
 pip install qPython
 ```
-### Getting the Data from a KDB+ process
+### Getting the Data from a kdb+ process
 After installing the qPython library open a new Jupyter Notebook, and ensure the install was successful by running, ``import qpython``, if no error occurs the module has been installed successfully.
 
-The following is a brief example on connecting to a KDB+ process with qPython and making a simple plot using [Plotly](https://plotly.com/) Python Library, which can be [downloaded using conda](https://anaconda.org/plotly/plotly), via the Anaconda prompt.
+The following is a brief example on connecting to a kdb+ process with qPython and making a simple plot using [Plotly](https://plotly.com/) Python Library, which can be [downloaded using conda](https://anaconda.org/plotly/plotly), via the Anaconda prompt.
 ```
 conda install -c plotly plotly
 ```
@@ -195,7 +195,7 @@ First import the QConnection function from qPython and the express class from Pl
 from qpython.qconnection import QConnection
 import plotly.express as px
 ```
-Then make a connection to an exisiting KDB+ HDB process which contains the data obtained by the SEMO-downloader. Using this connection we can make a simple query to get the indexprices in EUR for the day ahead auction for a period between 2020.12.10 and 2020.12.12.
+Then make a connection to an exisiting kdb+ HDB process which contains the data obtained by the SEMO-downloader. Using this connection we can make a simple query to get the indexprices in EUR for the day ahead auction for a period between 2020.12.10 and 2020.12.12.
 ```python
 with QConnection(host = '<hostname>', port = <portnumber>, username = '<user>', password = '<pass>') as q:
     data=q("""select datetime,priceeur from indexprices where date within (2020.12.10; 2020.12.12), 
