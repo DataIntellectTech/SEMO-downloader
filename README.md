@@ -13,12 +13,11 @@ mkdir deploy deploy/hdb
 cp -r TorQ/* deploy/
 cp -r SEMO-downloader/* deploy/
 ```
-Once installed we can then move into our `deploy` directory, set the required environment variables using `setenv.sh` and start up our TorQ stack.
+Once installed we can then move into our `deploy` directory, set the required environment variables using `setenv.sh`.
 
 ```
 cd deploy
 . setenv.sh
-. torq.sh start all
 ```
 
 ### Quick Setup Guide
