@@ -11,16 +11,20 @@ else
 fi
 
 export TORQHOME=${dirpath}
+export TORQAPPHOME=${TORQHOME}
+export TORQDATAHOME=${TORQHOME}
 export KDBCONFIG=${TORQHOME}/config
 export KDBCODE=${TORQHOME}/code
-export KDBLOG=${TORQHOME}/logs
+export KDBLOG=${TORQDATAHOME}/logs
 export KDBHTML=${TORQHOME}/html
 export KDBLIB=${TORQHOME}/lib
-export KDBHDB=${TORQHOME}/hdb
-export KDBWDB=${TORQHOME}/wdbhdb
-export KDBDQCDB=${TORQHOME}/dqe/dqcdb/database
-export KDBDQEDB=${TORQHOME}/dqe/dqedb/database
-export KDBTPLOG=${TORQHOME}/tplogs
+export KDBHDB=${TORQDATAHOME}/hdb
+export KDBWDB=${TORQDATAHOME}/wdbhdb
+export KDBDQCDB=${TORQDATAHOME}/dqe/dqcdb/database
+export KDBDQEDB=${TORQDATAHOME}/dqe/dqedb/database
+export KDBTPLOG=${TORQDATAHOME}/tplogs
+export KDBTESTS=${TORQHOME}/tests
+export KDBPCAPS=${TORQAPPHOME}/pcaps
 
 # set rlwrap and qcon paths for use in torq.sh qcon flag functions
 export RLWRAP="rlwrap"
