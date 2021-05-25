@@ -4,10 +4,21 @@ The purpose of this TorQ app is to provide an environment where users can downlo
 
 # Installation
 
-Requires kdb+. For Linux users, SEMO-downloader can be very quickly installed with our [installation script](https://www.aquaq.co.uk/q/torq-installation-script/) by running
+Requires kdb+. For Linux users, SEMO-downloader can be installed by running the following lines:
 ```
-wget https://raw.githubusercontent.com/AquaQAnalytics/SEMO-downloader/master/installlatest.sh
-bash installlatest.sh
+mkdir SEMOTorQ;cd SEMOTorQ
+git clone https://github.com/AquaQAnalytics/TorQ.git
+git clone https://github.com/AquaQAnalytics/SEMO-downloader.git
+mkdir deploy deploy/hdb
+cp -r TorQ/* deploy/
+cp -r SEMO-downloader/* deploy/
+```
+Once installed we can then move into our `deploy` directory, set the required environment variables using `setenv.sh` and start up our TorQ stack.
+
+```
+cd deploy
+. setenv.sh
+. torq.sh start all
 ```
 
 ### Quick Setup Guide
