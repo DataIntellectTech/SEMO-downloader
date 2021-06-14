@@ -371,7 +371,7 @@ checkdates:{[table;sd;ed] td:raze value each .semo.hdbhandle"select date from ",
 savedownchk:{[table;sd;ed]
   $[table in .semo.hdbhandle"tables`";
      .semo.checkdates[table;sd;ed];
-     .semo.savetbl[table;enlist ed-til ed-sd]]}
+     .semo.savetbl[table;ed-til ed-sd]]}
 
 
 backload:{[sd;ed]
