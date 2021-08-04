@@ -1,6 +1,6 @@
 # SEMO-downloader
 
-The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf), and weather data obtained from the [ClimaCell API](https://www.climacell.co/weather-api/), in either kdb+ or Python, as well the ability to display this data using customized plots via the kdb+ Plugin for Grafana.
+The purpose of this TorQ app is to provide an environment where users can download and store data relevent to electricity production for both NI and ROI. The app can be used to perfrom bespoke analysis of electric market data sourced from the [SEMOpx API](https://www.semopx.com/documents/general-publications/SEMOpx-Website-Report-API.pdf), and weather data obtained from the [Tomorrow.io API](https://www.tomorrow.io/data-catalog/), in either kdb+ or Python, as well the ability to display this data using customized plots via the kdb+ Plugin for Grafana.
 
 # Installation
 
@@ -22,7 +22,7 @@ cd deploy
 
 ### Quick Setup Guide
 
-To make use of the weather forecasting information you will first need to register for a free API key from the [ClimaCell weather API website](https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the ClimaCell gives access to 1000 calls per day and each cluster requires 48 calls per day.
+To make use of the weather forecasting information you will first need to register for a free API key from the [Tomorrow.io weather API website](https://app.climacell.co/signup?planid=5fa4047f4acee993fbd7399d&vid=4799811d-3dd8-49fa-9e91-04be3b5de3e1). Then replace the placeholder API key in apikey.txt with your own. To get weather data about a specific location you should update the lat_lon.csv with the latitude and longitude of that specific location along with an associated location sym. Note that the free version of the ClimaCell gives access to 1000 calls per day and each cluster requires 48 calls per day.
 
 To backfill the HDB with the SEMOpx Reports run
 ```
